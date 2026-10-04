@@ -5,7 +5,7 @@ Atom 的传奇 **One Dark Pro** 配色（[Binaryify/OneDark-Pro](https://github.
 - 🌐 **Web GUI**（`dsh web`）与 **DSH Desktop**
 - 💻 **dsh-TUI**（终端客户端）
 
-主题注册进内置主题系统，与 light/dark/system 选项同级：在 **Settings → General** 一键切换、记住选择；代码块使用 One Dark Pro 经典语法配色（关键字紫、字符串绿、函数蓝、数字橙、注释灰）。
+主题注册进内置主题系统，与 light/dark/system 选项同级：在 **Settings → General** 一键切换、记住选择。代码块采用 ChatGPT 式悬浮面板（比页面亮一档、圆角、`</>` 语言胶囊头部），语法色沿用 [chatgpt-dark.user.css](../chatgpt-dark.user.css)（蓝灰 One Dark 风格）的 codex 配色。
 
 ## 主题
 
@@ -56,7 +56,9 @@ DSH 的主题运行时接受一组 `--dsw-alias-*` / `--dsw-specific-*` 别名 t
 
 - **背景阶梯**：`#282c34`（编辑器底）→ `#2c313a`（悬浮）→ `#3e4452`（凸起），侧栏用 `#21252b`、输入框用 `#1d1f23`，全部照搬上游工作区配色。
 - **品牌色**：`#61afef`（One Dark Pro 蓝）用于链接、选中、气泡着色；实心按钮配深色文字保证对比度。
-- **语法色**（代码块 shiki token / TUI syntax*）：keyword `#c678dd`、string `#98c379`、number/constant `#d19a66`、function `#61afef`、tag/variable `#e06c75`、type `#e5c07b`、operator/regex `#56b6c2`、comment `#5c6370`。
+- **代码块（ChatGPT 观感）**：代码区比页面亮一档（Pro 上即 `#32373f`），头部条与代码区同色，行内代码 `#363a42`，附加 CSS 提供圆角与 `</>` 语言胶囊。
+- **语法色**（代码块 shiki token，取自 chatgpt-dark.user.css 的 codex 配色）：keyword `#f8a6c8`、string `#83d197`、literal/constant `#f1a275`、function/name `#63a8f8`、variable/parameter `#b897f4`、comment `#b9b9b9`、link `#66b5ff`。
+- **文字层级**：正文 `#abb2bf`、次级 `#9da3ae`、三级 `#868c97`，与 ChatGPT 主题一致。
 
 ## 开发
 

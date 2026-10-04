@@ -21,8 +21,12 @@ const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
 
 const rgba = (c, a) => `rgba(${c[0]}, ${c[1]}, ${c[2]}, ${a})`;
 
-const BLACK = [0, 0, 0];
 const WHITE = [255, 255, 255];
+
+/** Secondary/tertiary text from the user's ChatGPT dark theme
+ *  (chatgpt-dark.user.css — the "蓝灰 One Dark" reference look). */
+const TEXT2 = [157, 163, 174]; // #9da3ae
+const TEXT3 = [134, 140, 151]; // #868c97
 
 /** Shared One Dark Pro accents (identical across every upstream variant). */
 const ODP = {
@@ -95,8 +99,12 @@ function buildTokens(v) {
 	const M1 = mix(v.bg, v.bgAlt, 0.5); // module platform / elevated
 	const SOLID = mix(L1, v.ladder, 0.28); // hover-solid / toast / citation
 	const SEGU = mix(v.bg, L1, 0.5); // unselected segment / selector / login input
-	const CB = mix(v.bg, BLACK, 0.15); // code block background
-	const BAN = mix(v.bg, v.bgAlt, 0.6); // code block banner
+	// ChatGPT-look code surfaces: an elevated panel one step LIGHTER than the
+	// page (#282c34 -> #32373f on onedark-pro, same offset on every flavor),
+	// banner merged into the body, inline code one step higher still
+	// (#32373f -> #363a42) — the ladder chatgpt-dark.user.css paints.
+	const CB = [v.bg[0] + 10, v.bg[1] + 11, v.bg[2] + 11];
+	const INLINE = [CB[0] + 4, CB[1] + 3, CB[2] + 3];
 	return {
 		"--dsw-alias-bg-base": hex(...v.bg),
 		"--dsw-alias-bg-layer-1": hex(...L1),
@@ -150,21 +158,21 @@ function buildTokens(v) {
 		"--dsw-alias-interactive-bg-hover-danger": rgba(P.red, 0.15),
 		"--dsw-alias-interactive-bg-hover-solid": hex(...SOLID),
 		"--dsw-alias-interactive-bg-hover": rgba(P.blue, 0.12),
-		"--dsw-alias-label-caption": hex(...P.fgDim),
-		"--dsw-alias-label-dimmed": hex(...P.fgDim),
+		"--dsw-alias-label-caption": hex(...TEXT3),
+		"--dsw-alias-label-dimmed": hex(...TEXT3),
 		"--dsw-alias-label-primary-bluish": hex(...mix(P.fg, P.blue, 0.25)),
-		"--dsw-alias-label-primary-dimmed": hex(...mix(P.fg, P.fgDim, 0.5)),
+		"--dsw-alias-label-primary-dimmed": hex(...mix(P.fg, TEXT3, 0.5)),
 		"--dsw-alias-label-primary-foreground": hex(...v.bg),
 		"--dsw-alias-label-primary-inverted": hex(...v.bg),
 		"--dsw-alias-label-primary": hex(...P.fg),
-		"--dsw-alias-label-secondary": hex(...mix(P.fg, P.fgDim, 0.35)),
-		"--dsw-alias-label-tertiary": hex(...mix(P.fg, P.fgDim, 0.7)),
+		"--dsw-alias-label-secondary": hex(...TEXT2),
+		"--dsw-alias-label-tertiary": hex(...TEXT3),
 		"--dsw-alias-markdown-citation": hex(...SOLID),
-		"--dsw-alias-markdown-code-block-banner": hex(...BAN),
+		"--dsw-alias-markdown-code-block-banner": hex(...CB),
 		"--dsw-alias-markdown-code-block": hex(...CB),
 		"--dsw-alias-markdown-code-segment-selected": hex(...M2),
 		"--dsw-alias-markdown-code-segment-unselected": hex(...SEGU),
-		"--dsw-alias-markdown-inline-code": hex(...L1),
+		"--dsw-alias-markdown-inline-code": hex(...INLINE),
 		"--dsw-alias-markdown-placeholder": hex(...M1),
 		"--dsw-alias-markdown-tag": hex(...M2),
 		"--dsw-alias-scrollbar-bg-l1": hex(...L2),
@@ -195,21 +203,20 @@ function buildTokens(v) {
 		"--dsw-specific-sidebar-nav-item-active": hex(...SOLID),
 		"--dsw-specific-sidebar-nav-item-hover": hex(...mix(v.bg, L1, 0.6)),
 		"--dsw-specific-tip": hex(...M1),
-		// Canonical One Dark Pro syntax colors for markdown code blocks:
-		// keyword purple, string green, number orange, function blue,
-		// tag/parameter red, comment gray — the mapping the editor theme
-		// ships upstream.
+		// ChatGPT 蓝灰主题的代码语法色（chatgpt-dark.user.css 的
+		// --color-codex-syntax-* / --codeblock-syntax-*）：keyword 粉、
+		// string 绿、literal 橙、name/function 蓝、variable 紫、comment 浅灰。
 		"--shiki-foreground": hex(...P.fg),
 		"--shiki-background": hex(...CB),
-		"--shiki-token-constant": hex(...P.orange),
-		"--shiki-token-string": hex(...P.green),
-		"--shiki-token-comment": hex(...P.fgDim),
-		"--shiki-token-keyword": hex(...P.purple),
-		"--shiki-token-parameter": hex(...P.red),
-		"--shiki-token-function": hex(...P.blue),
-		"--shiki-token-string-expression": hex(...P.cyan),
-		"--shiki-token-punctuation": hex(...mix(P.fg, P.fgDim, 0.65)),
-		"--shiki-token-link": hex(...P.blue),
+		"--shiki-token-constant": "#f1a275",
+		"--shiki-token-string": "#83d197",
+		"--shiki-token-comment": "#b9b9b9",
+		"--shiki-token-keyword": "#f8a6c8",
+		"--shiki-token-parameter": "#b897f4",
+		"--shiki-token-function": "#63a8f8",
+		"--shiki-token-string-expression": "#83d197",
+		"--shiki-token-punctuation": hex(...TEXT2),
+		"--shiki-token-link": "#66b5ff",
 	};
 }
 
@@ -607,7 +614,7 @@ __TOKENS__
 			const SURFACE_RULES = [
 				[
 					'[class$="_userStack"] [class$="_bubble"]',
-					'  background: color-mix(in srgb, var(--dsw-alias-brand-primary) 32%, var(--dsw-alias-bg-layer-2));'
+					'  background: color-mix(in srgb, var(--dsw-alias-label-primary) 8%, transparent);'
 				],
 				[
 					'button[class$="_add"][aria-haspopup="listbox"]',
@@ -631,7 +638,18 @@ __TOKENS__
 				],
 				[
 					'[class$="_infostring"]',
-					'  color: var(--dsw-odp-orange);'
+					[
+						'  display: inline-block;',
+						'  background: rgba(255, 255, 255, 0.06);',
+						'  border-radius: 6px;',
+						'  padding: 2px 8px;',
+						'  font-size: 12px;',
+						'  color: var(--dsw-alias-label-secondary);'
+					].join('\\n')
+				],
+				[
+					'pre',
+					'  border-radius: 12px;'
 				],
 				[
 					'[class$="_timeStart"]',
@@ -730,7 +748,11 @@ __TOKENS__
 						'  filter: none;'
 					].join('\\n')
 				]
-			].map(([selector, body]) => \`\${boost(selector)} {\\n\${body}\\n}\`).join("\\n");
+			].map(([selector, body]) => \`\${boost(selector)} {\\n\${body}\\n}\`).join("\\n")
+				// ::before must stay out of boost(): a pseudo-element has to end
+				// its selector, so :not() appended after it would invalidate the
+				// rule. Nothing else defines this rule — no boost needed.
+				+ '\\n[class$="_infostring"]::before {\\n  content: "</>";\\n  margin-right: 6px;\\n  opacity: 0.65;\\n  font-family: var(--ds-font-family-code);\\n}\\n';
 			const style = document.createElement("style");
 			style.textContent = SURFACE_RULES;
 			const syncSurfaceTint = () => {
