@@ -1,0 +1,57 @@
+{
+  "name": "onedark-dsh-theme",
+  "version": "0.1.0",
+  "description": "One Dark Pro themes for DeepSeek Harness: three faithful dark flavors (One Dark Pro, Darker, Night Flat) registered into DSH's theme runtime with a picker row in Settings, including the canonical syntax colors for markdown code blocks",
+  "license": "MIT",
+  "author": "onedark-dsh-theme contributors",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "plugin",
+    "dsh-plugin",
+    "theme",
+    "one-dark-pro",
+    "onedark",
+    "web-ui"
+  ],
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "types": "./lib/types/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./client": {
+      "types": "./lib/types/client/index.d.ts",
+      "default": "./lib/client.js"
+    },
+    "./tui-themes": "./lib/tui-themes.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/tui-themes.js",
+    "lib/types",
+    "cordis.patch.yml",
+    "themes"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-theme",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ],
+      "platform": "web",
+      "immediately": true
+    }
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  }
+}
