@@ -415,7 +415,9 @@ __TOKENS__
 				color: "var(--dsw-alias-label-secondary)",
 				fontSize: "12px",
 				lineHeight: "16px",
-				whiteSpace: "nowrap"
+				// wrap, don't clip: the upstream flavor names outgrow the 96px card
+				whiteSpace: "normal",
+				overflowWrap: "break-word"
 			},
 			cardLabelSelected: {
 				color: "var(--dsw-alias-label-primary)"
@@ -446,12 +448,16 @@ __TOKENS__
 			}
 		};
 
-		/** Mini palette preview driven by one theme's token table. */
+		/** Mini palette preview driven by one theme's token table. The
+		 *  background must be bg-base and the first line the sidebar fill:
+		 *  those are the only tokens that differ between the three flavors
+		 *  (layer-1 is shared by pro/darker, so a layer-1 swatch would render
+		 *  two identical cards). */
 		function ThemeSwatch({ tokens }) {
 			return (0, react_jsx_runtime.jsxs)("div", {
 				style: {
 					...styles.swatch,
-					background: tokens["--dsw-alias-bg-layer-1"],
+					background: tokens["--dsw-alias-bg-base"],
 					border: "1px solid " + tokens["--dsw-alias-border-l2"]
 				},
 				children: [
@@ -459,8 +465,7 @@ __TOKENS__
 						style: {
 							...styles.swatchLine,
 							width: "70%",
-							background: tokens["--dsw-alias-label-primary"],
-							opacity: 0.85
+							background: tokens["--dsw-specific-sidebar-fill"]
 						}
 					}),
 					(0, react_jsx_runtime.jsx)("div", {
@@ -474,8 +479,8 @@ __TOKENS__
 						style: {
 							...styles.swatchLine,
 							width: "55%",
-							background: tokens["--dsw-alias-label-secondary"],
-							opacity: 0.55
+							background: tokens["--dsw-alias-label-primary"],
+							opacity: 0.85
 						}
 					})
 				]

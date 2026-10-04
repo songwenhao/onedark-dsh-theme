@@ -1,6 +1,6 @@
 {
   "name": "onedark-dsh-theme",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "One Dark Pro themes for DeepSeek Harness: three faithful dark flavors (One Dark Pro, Darker, Night Flat) registered into DSH's theme runtime with a picker row in Settings, including the canonical syntax colors for markdown code blocks",
   "license": "MIT",
   "author": "onedark-dsh-theme contributors",
