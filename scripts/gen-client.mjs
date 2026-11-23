@@ -46,20 +46,25 @@ const ODP = {
 };
 
 /**
- * Per-flavor background ladder, taken verbatim from the upstream
+ * Per-flavor background ladder. `bg`/`bgAlt`/`deep` start from the upstream
  * OneDark-Pro*.json workbench sheets (editor.background / sideBar.background /
- * input.background / list.hoverBackground). `ladder` is the color the
- * layer-2/3 elevation steps mix toward — raise for the standard flavors,
- * hover for night-flat whose gap to raise would be too stark.
+ * input.background); `ladder` is the color the layer-2/3 elevation steps mix
+ * toward — raise for the standard flavors, hover for night-flat whose gap to
+ * raise would be too stark.
+ *
+ * 20261123: the onedark-pro ladder is lifted one step overall (bg/layer1/
+ * ladder all brighter) to match onedark-zcode-theme v0.1.5 — the canonical
+ * ramp read as too dark on large surfaces. Darker / Night Flat keep the
+ * original depths on purpose.
  */
 const VARIANTS = [
 	{
 		id: "onedark-pro",
-		bg: [40, 44, 52], // #282c34
-		bgAlt: [33, 37, 43], // #21252b
-		deep: [29, 31, 35], // #1d1f23
-		layer1: ODP.hover,
-		ladder: ODP.raise,
+		bg: [44, 49, 58], // #2c313a
+		bgAlt: [38, 43, 52], // #262b34
+		deep: [34, 38, 46], // #22262e
+		layer1: [52, 59, 70], // #343b46
+		ladder: [71, 80, 98], // #475062
 	},
 	{
 		id: "onedark-darker",
@@ -100,9 +105,9 @@ function buildTokens(v) {
 	const SOLID = mix(L1, v.ladder, 0.28); // hover-solid / toast / citation
 	const SEGU = mix(v.bg, L1, 0.5); // unselected segment / selector / login input
 	// ChatGPT-look code surfaces: an elevated panel one step LIGHTER than the
-	// page (#282c34 -> #32373f on onedark-pro, same offset on every flavor),
+	// page (#2c313a -> #363c45 on onedark-pro, same offset on every flavor),
 	// banner merged into the body, inline code one step higher still
-	// (#32373f -> #363a42) — the ladder chatgpt-dark.user.css paints.
+	// (#363c45 -> #3a3f48) — the ladder chatgpt-dark.user.css paints.
 	const CB = [v.bg[0] + 10, v.bg[1] + 11, v.bg[2] + 11];
 	const INLINE = [CB[0] + 4, CB[1] + 3, CB[2] + 3];
 	return {

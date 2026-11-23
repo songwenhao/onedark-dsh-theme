@@ -15,7 +15,8 @@
  * slots (indigo = cyan, violet = purple — One Dark Pro ships seven hues).
  *
  * The three flavors only differ in the surface ramp, mirroring the
- * upstream OneDark-Pro*.json workbench sheets.
+ * upstream OneDark-Pro*.json workbench sheets. 20261123: the onedark-pro
+ * ramp is lifted one step to match onedark-zcode-theme v0.1.5.
  *
  * Run: node scripts/gen-tui-themes.mjs
  */
@@ -88,10 +89,12 @@ const HEX = {
  *  base = editor.background, surface0/1 = sideBar/tabs chrome,
  *  surface2 = focusBorder (prompt border). */
 const PALETTES = {
+  // 20261123: onedark-pro 阶梯整体上提一档（与 onedark-zcode-theme v0.1.5 对齐），
+  // base/surface0-1/surface2 = #2c313a / #262b34 / #475062；Darker 与 Night Flat 原档不动。
   'onedark-pro': {
     ...HEX,
-    base: '#282c34', text: '#abb2bf', sub: '#8f96a3', dim: '#5c6370', punct: '#787f8c',
-    surface0: '#21252b', surface1: '#21252b', surface2: '#3e4452',
+    base: '#2c313a', text: '#abb2bf', sub: '#8f96a3', dim: '#5c6370', punct: '#787f8c',
+    surface0: '#262b34', surface1: '#262b34', surface2: '#475062',
   },
   'onedark-darker': {
     ...HEX,

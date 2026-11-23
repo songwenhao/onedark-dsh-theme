@@ -11,11 +11,11 @@ Atom 的传奇 **One Dark Pro** 配色（[Binaryify/OneDark-Pro](https://github.
 
 | 主题 | 主背景 | 侧栏/工具区 | 说明 |
 | --- | --- | --- | --- |
-| **One Dark Pro** | `#282c34` | `#21252b` | 经典默认外观 |
+| **One Dark Pro** | `#2c313a` | `#262b34` | 经典默认外观（阶梯较规范值上提一档） |
 | **One Dark Pro Darker** | `#23272e` | `#1e2227` | 整体更深一档 |
 | **One Dark Pro Night Flat** | `#16191d` | `#1e2227` | 近纯黑的 OLED 友好变体 |
 
-三个变体只调整背景梯度，语法色与上游各变体完全一致。每个颜色都取自上游 `OneDark-Pro*.json` 工作区配色与 `tokenColors` 语法色的规范值，没有默认的 DeepSeek 蓝灰残留。
+三个变体只调整背景梯度，语法色与上游各变体完全一致。One Dark Pro 的背景阶梯自 0.2.1 起整体上提一档（与 [onedark-zcode-theme](../onedark-zcode-theme) 对齐，缓解大面积偏暗），其余颜色仍取自上游 `OneDark-Pro*.json` 工作区配色与 `tokenColors` 语法色的规范值，没有默认的 DeepSeek 蓝灰残留。
 
 ## 安装
 
@@ -54,9 +54,9 @@ dsh plugin --profile dsh-tui add github:songwenhao/onedark-dsh-theme
 
 DSH 的主题运行时接受一组 `--dsw-alias-*` / `--dsw-specific-*` 别名 token，本插件把 One Dark Pro 的规范色映射上去：
 
-- **背景阶梯**：`#282c34`（编辑器底）→ `#2c313a`（悬浮）→ `#3e4452`（凸起），侧栏用 `#21252b`、输入框用 `#1d1f23`，全部照搬上游工作区配色。
+- **背景阶梯**：`#2c313a`（编辑器底）→ `#343b46`（悬浮）→ `#475062`（凸起），侧栏用 `#262b34`、输入框用 `#22262e`；较上游规范值（`#282c34`/`#21252b`/`#3e4452`/`#1d1f23`）整体上提一档。
 - **品牌色**：`#61afef`（One Dark Pro 蓝）用于链接、选中、气泡着色；实心按钮配深色文字保证对比度。
-- **代码块（ChatGPT 观感）**：代码区比页面亮一档（Pro 上即 `#32373f`），头部条与代码区同色，行内代码 `#363a42`，附加 CSS 提供圆角与 `</>` 语言胶囊。
+- **代码块（ChatGPT 观感）**：代码区比页面亮一档（Pro 上即 `#363c45`），头部条与代码区同色，行内代码 `#3a3f48`，附加 CSS 提供圆角与 `</>` 语言胶囊。
 - **语法色**（代码块 shiki token，取自 chatgpt-dark.user.css 的 codex 配色）：keyword `#f8a6c8`、string `#83d197`、literal/constant `#f1a275`、function/name `#63a8f8`、variable/parameter `#b897f4`、comment `#b9b9b9`、link `#66b5ff`。
 - **文字层级**：正文 `#abb2bf`、次级 `#9da3ae`、三级 `#868c97`，与 ChatGPT 主题一致。
 
